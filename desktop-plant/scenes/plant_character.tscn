@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://mo8bhexegi0n"]
+
+[ext_resource type="Texture2D" uid="uid://cjwo3cplvj4p4" path="res://test - assets/mole.png" id="1_155m1"]
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_mi6vu"]
+
+[node name="PlantCharacter" type="Sprite2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_155m1")
+script = ExtResource("1_mi6vu")
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="ClickPolygon" type="CollisionPolygon2D" parent="ClickArea"]
+scale = Vector2(1.26875, 1.26875)
+polygon = PackedVector2Array(26, 25, 26, -25, -22.4631, -25, -22.4631, 25)
+
+[connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
