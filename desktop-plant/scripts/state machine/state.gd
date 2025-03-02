@@ -9,6 +9,7 @@ var parent: Character
 
 func enter() -> void:
 	#parent.animations.play(animation_name)
+	print(animation_name)
 	pass
 
 func exit() -> void:

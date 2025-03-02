@@ -16,6 +16,7 @@ func _ready() -> void:
 	# set mouse passthorough
 	print("screen ", _MainScreen)
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_MOUSE_PASSTHROUGH, true, _MainScreen)
+	# se puede borrar
 	DisplayServer.window_set_mouse_passthrough(character_region.polygon, _MainScreen)
 
 func _input(event: InputEvent) -> void:

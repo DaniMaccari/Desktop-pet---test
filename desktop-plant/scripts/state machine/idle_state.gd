@@ -5,7 +5,8 @@ extends State
 @export var move_state : State
 
 func enter() -> void:
-	parent.velocity = 0
+	super()
+	#parent.velocity = 0
 	#$Timer.start(3.0)
 
 func process_input(event: InputEvent) -> State:

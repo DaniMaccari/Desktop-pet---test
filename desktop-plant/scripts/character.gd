@@ -13,11 +13,14 @@ var mouse_offset : Vector2
 var dragging : bool = false
 var lerp_speed : float = 0.6
 
-#func _physics_process(_delta: float) -> void:
-	#if dragging:
-		#var target_position : Vector2 = get_global_mouse_position() + mouse_offset
-		#position = position.lerp(target_position, lerp_speed)
-	#_update_click_polygon()
+func _ready() -> void:
+	state_machine.init(self)
+
+func _physics_process(_delta: float) -> void:
+	if dragging:
+		var target_position : Vector2 = get_global_mouse_position() + mouse_offset
+		position = position.lerp(target_position, lerp_speed)
+	_update_click_polygon()
 
 # Updates the clickable area, preventing inputs from passing through the
 # window outside of the defined region.

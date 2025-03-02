@@ -9,8 +9,13 @@ extends State
 var mouse_offset : Vector2
 
 func enter() -> void:
-	parent.velocity = 0
+	super()
+	#parent.velocity = 0
 	mouse_offset = parent.position - parent.get_mouse()
+	parent.dragging = true
+
+func exit() -> void:
+	parent.dragging = false
 
 func process_input(event: InputEvent) -> State:
 	if event is InputEventMouseButton:
