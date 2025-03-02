@@ -1,6 +1,6 @@
 extends Node
 
-@export var parent: Character
+var parent: Character
 @export var starting_state: State
 var current_state: State
 
@@ -11,9 +11,9 @@ func init(parent: Character) -> void:
 	change_state(starting_state)
 
 func change_state(new_state: State) -> void:
-	if current_state:
+	if current_state != null:
 		current_state.exit()
-
+	
 	current_state = new_state
 	current_state.enter()
 	
@@ -25,6 +25,7 @@ func process_physics(delta: float) -> void:
 		change_state(new_state)
 
 func process_input(event: InputEvent) -> void:
+	print(current_state)
 	if !current_state:
 		return
 	var new_state = current_state.process_input(event)

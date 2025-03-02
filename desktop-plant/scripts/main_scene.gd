@@ -10,5 +10,5 @@ func _ready() -> void:
 	get_viewport().transparent_bg = true
 	
 	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_MOUSE_PASSTHROUGH, true, 0)
-	DisplayServer.window_set_mouse_passthrough([Vector2(0, 0), Vector2(100, 0), Vector2(100, 100), Vector2(0, 100)], 0)	
+	#DisplayServer.window_set_mouse_passthrough([Vector2(0, 0), Vector2(100, 0), Vector2(100, 100), Vector2(0, 100)], 0)	
 	

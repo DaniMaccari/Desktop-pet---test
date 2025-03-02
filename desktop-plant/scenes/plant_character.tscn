@@ -18,9 +18,8 @@ script = ExtResource("1_mi6vu")
 scale = Vector2(1.26875, 1.26875)
 polygon = PackedVector2Array(26, 25, 26, -25, -22.4631, -25, -22.4631, 25)
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("parent", "starting_state") instance=ExtResource("3_35jke")]
+[node name="StateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_35jke")]
 script = ExtResource("4_k81tk")
-parent = NodePath("..")
 starting_state = NodePath("IdleState")
 
 [node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("grab_state")]
