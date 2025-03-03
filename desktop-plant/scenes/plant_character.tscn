@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://mo8bhexegi0n"]
+[gd_scene load_steps=10 format=3 uid="uid://mo8bhexegi0n"]
 
 [ext_resource type="Texture2D" uid="uid://cjwo3cplvj4p4" path="res://test - assets/mole.png" id="1_155m1"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_mi6vu"]
 [ext_resource type="PackedScene" uid="uid://uhr20mqtifn" path="res://scenes/state_machine.tscn" id="3_35jke"]
 [ext_resource type="Script" path="res://scripts/state machine/state_machine.gd" id="4_k81tk"]
 [ext_resource type="Script" path="res://scripts/state machine/idle_state.gd" id="5_uck71"]
+[ext_resource type="Script" path="res://scripts/state machine/manu_state.gd" id="5_uxh68"]
 [ext_resource type="Script" path="res://scripts/state machine/grab_state.gd" id="6_11cr4"]
 [ext_resource type="Script" path="res://scripts/state machine/move_state.gd" id="7_8gmn3"]
+[ext_resource type="Script" path="res://scripts/state machine/sleep_state.gd" id="8_qcc5s"]
 
 [node name="PlantCharacter" type="Sprite2D"]
 scale = Vector2(2, 2)
@@ -23,21 +25,50 @@ polygon = PackedVector2Array(26, 25, 26, -25, -22.4631, -25, -22.4631, 25)
 script = ExtResource("4_k81tk")
 starting_state = NodePath("IdleState")
 
-[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("grab_state")]
-script = ExtResource("5_uck71")
+[node name="ManuState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "grab_state", "move_state", "sleep_state")]
+script = ExtResource("5_uxh68")
+idle_state = NodePath("../IdleState")
 grab_state = NodePath("../GrabState")
+move_state = NodePath("../MoveState")
+sleep_state = NodePath("../SleepState")
+
+[node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "grab_state", "move_state", "sleep_state")]
+script = ExtResource("5_uck71")
+menu_state = NodePath("../ManuState")
+grab_state = NodePath("../GrabState")
+move_state = NodePath("../MoveState")
+sleep_state = NodePath("../SleepState")
 
 [node name="Timer" type="Timer" parent="StateMachine/IdleState"]
+one_shot = true
 
-[node name="GrabState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
+[node name="GrabState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "move_state", "sleep_state")]
 script = ExtResource("6_11cr4")
+menu_state = NodePath("../ManuState")
 idle_state = NodePath("../IdleState")
+move_state = NodePath("../MoveState")
+sleep_state = NodePath("../SleepState")
 lerp_speed = 0.6
 
-[node name="MoveState" type="Node" parent="StateMachine"]
+[node name="MoveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "grab_state", "sleep_state")]
 script = ExtResource("7_8gmn3")
+menu_state = NodePath("../ManuState")
+idle_state = NodePath("../IdleState")
+grab_state = NodePath("../GrabState")
+sleep_state = NodePath("../SleepState")
+move_speed = 100.0
+screen_margin = 80.0
 
 [node name="Timer" type="Timer" parent="StateMachine/MoveState"]
+one_shot = true
+
+[node name="SleepState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "grab_state", "move_state")]
+script = ExtResource("8_qcc5s")
+menu_state = NodePath("../ManuState")
+idle_state = NodePath("../IdleState")
+grab_state = NodePath("../GrabState")
+move_state = NodePath("../MoveState")
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="StateMachine/IdleState/Timer" to="StateMachine/IdleState" method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/MoveState/Timer" to="StateMachine/MoveState" method="_on_timer_timeout"]

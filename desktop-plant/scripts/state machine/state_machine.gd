@@ -11,6 +11,7 @@ func init(parent: Character) -> void:
 	change_state(starting_state)
 
 func change_state(new_state: State) -> void:
+	print(new_state)
 	if current_state != null:
 		current_state.exit()
 	

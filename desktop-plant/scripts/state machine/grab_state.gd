@@ -3,6 +3,7 @@ extends State
 @export var menu_state : State
 @export var idle_state : State
 @export var move_state : State
+@export var sleep_state : State
 
 @export var lerp_speed : float = 0.5
 
