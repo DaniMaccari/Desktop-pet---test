@@ -32,6 +32,7 @@ grab_state = NodePath("../GrabState")
 [node name="GrabState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("6_11cr4")
 idle_state = NodePath("../IdleState")
+lerp_speed = 0.6
 
 [node name="MoveState" type="Node" parent="StateMachine"]
 script = ExtResource("7_8gmn3")

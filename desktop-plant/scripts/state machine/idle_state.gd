@@ -16,9 +16,13 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent._update_click_polygon()
-	return null
+	var click_polygon: PackedVector2Array = parent._ClickPolygon.polygon
 	
+	for vec_i in range(click_polygon.size()):
+		click_polygon[vec_i] = parent.to_global(click_polygon[vec_i])
+	parent.get_window().mouse_passthrough_polygon = click_polygon
+	
+	return null
 
 func _on_timer_timeout() -> void:
 	#get_parent().change_state(move_state)
