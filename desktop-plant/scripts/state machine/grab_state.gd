@@ -23,8 +23,10 @@ func process_input(event: InputEvent) -> State:
 			return idle_state
 	return null
 
-func _physics_process(delta: float) -> void:
+func process_physics(delta: float) -> State:
 	if parent == null:
-		return
+		return null
 	var target_position : Vector2 = parent.get_mouse() + mouse_offset
 	parent.position = parent.position.lerp(target_position, lerp_speed)
+	parent._update_click_polygon()
+	return null

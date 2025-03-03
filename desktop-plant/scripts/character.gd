@@ -17,36 +17,19 @@ func _ready() -> void:
 	state_machine.init(self)
 
 func _physics_process(_delta: float) -> void:
-	if dragging:
-		var target_position : Vector2 = get_global_mouse_position() + mouse_offset
-		position = position.lerp(target_position, lerp_speed)
-	_update_click_polygon()
+	pass
+	#if dragging:
+		#var target_position : Vector2 = get_global_mouse_position() + mouse_offset
+		#position = position.lerp(target_position, lerp_speed)
+	#_update_click_polygon()
 
 # Updates the clickable area, preventing inputs from passing through the
 # window outside of the defined region.
-func _update_click_polygon_original() -> void:
-	var click_polygon: PackedVector2Array = _ClickPolygon.polygon
-	for vec_i in range(click_polygon.size()):
-		click_polygon[vec_i] = to_global(click_polygon[vec_i])
-	get_window().mouse_passthrough_polygon = click_polygon
-
-func _update_click_polygon() -> void:
-	var click_polygon: PackedVector2Array = _ClickPolygon.polygon
-	
-	if dragging:
-		# Obtiene el tamaño de la pantalla
-		var screen_size = DisplayServer.window_get_size()
-		click_polygon = PackedVector2Array([
-			Vector2(0, 0),
-			Vector2(screen_size.x, 0),
-			Vector2(screen_size.x, screen_size.y),
-			Vector2(0, screen_size.y)
-		])
-	else:
-		for vec_i in range(click_polygon.size()):
-			click_polygon[vec_i] = to_global(click_polygon[vec_i])
-
-	get_window().mouse_passthrough_polygon = click_polygon
+#func _update_click_polygon_original() -> void:
+	#var click_polygon: PackedVector2Array = _ClickPolygon.polygon
+	#for vec_i in range(click_polygon.size()):
+		#click_polygon[vec_i] = to_global(click_polygon)
+	#get_window().mouse_passthrough_polygon = click_polygon
 #
 #func _on_click_area_input_event(_viewport: Node, event: InputEvent,
 		#_shape_idx: int) -> void:

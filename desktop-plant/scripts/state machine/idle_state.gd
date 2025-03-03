@@ -7,7 +7,7 @@ extends State
 func enter() -> void:
 	super()
 	#parent.velocity = 0
-	#$Timer.start(3.0)
+	$Timer.start(3.0)
 
 func process_input(event: InputEvent) -> State:
 	if event is InputEventMouseButton:
@@ -15,9 +15,11 @@ func process_input(event: InputEvent) -> State:
 			return grab_state
 	return null
 
-func _process(delta: float) -> void:
-	pass
+func process_physics(delta: float) -> State:
+	parent._update_click_polygon()
+	return null
+	
 
 func _on_timer_timeout() -> void:
-	parent.go_to_state(move_state)
-	pass # Replace with function body.
+	#get_parent().change_state(move_state)
+	pass
