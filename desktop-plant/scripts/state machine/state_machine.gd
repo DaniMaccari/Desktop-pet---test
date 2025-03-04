@@ -1,6 +1,5 @@
 extends Node
 
-var parent: Character
 @export var starting_state: State
 var current_state: State
 
@@ -30,6 +29,7 @@ func process_input(event: InputEvent) -> void:
 		return
 	var new_state = current_state.process_input(event)
 	if new_state:
+		await get_tree().process_frame
 		change_state(new_state)
 
 func process_frame(delta: float) -> void:

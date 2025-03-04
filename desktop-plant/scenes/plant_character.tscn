@@ -23,7 +23,6 @@ script = ExtResource("1_mi6vu")
 [node name="ClickArea" type="Area2D" parent="."]
 
 [node name="ClickPolygon" type="CollisionPolygon2D" parent="ClickArea"]
-scale = Vector2(1.26875, 1.26875)
 polygon = PackedVector2Array(26, 25, 26, -25, -22.4631, -25, -22.4631, 25)
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("3_35jke")]
@@ -76,6 +75,7 @@ grab_state = NodePath("../GrabState")
 move_state = NodePath("../MoveState")
 
 [node name="Menu" type="Node2D" parent="."]
+visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Menu"]
 visible = false
@@ -93,18 +93,9 @@ position = Vector2(30, -46)
 position = Vector2(-30, -46)
 
 [node name="Sprite2D" type="Sprite2D" parent="Menu"]
-visible = false
 position = Vector2(3, -49)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_kub6u")
-
-[node name="MenuArea" type="Area2D" parent="Menu"]
-position = Vector2(0, -34)
-
-[node name="MenuPolygon" type="CollisionPolygon2D" parent="Menu/MenuArea"]
-position = Vector2(3, -15)
-scale = Vector2(0.6, 0.6)
-polygon = PackedVector2Array(-90, -60.8333, -91.6667, 49.1667, 103.333, 47.5, 104.167, -57.5)
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="StateMachine/IdleState/Timer" to="StateMachine/IdleState" method="_on_timer_timeout"]

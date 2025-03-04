@@ -11,7 +11,6 @@ var mouse_offset : Vector2
 
 func enter() -> void:
 	super()
-	#parent.velocity = 0
 	mouse_offset = parent.position - parent.get_mouse()
 
 func process_input(event: InputEvent) -> State:
