@@ -5,6 +5,8 @@ extends Sprite2D
 @onready
 var _ClickPolygon: CollisionPolygon2D = $ClickArea/ClickPolygon
 @onready
+var _MenuPolygon: CollisionPolygon2D = $Menu/MenuArea/MenuPolygon
+@onready
 var state_machine = $StateMachine
 
 # character variables
@@ -27,6 +29,12 @@ func _process(delta: float) -> void:
 
 func get_mouse() -> Vector2:
 	return get_global_mouse_position()
+
+func show_menu() -> void:
+	$Menu/Sprite2D.show()
+
+func hide_menu() -> void:
+	$Menu/Sprite2D.hide()
 
 #func _physics_process(_delta: float) -> void:
 	#pass

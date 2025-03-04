@@ -17,6 +17,8 @@ func process_input(event: InputEvent) -> State:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			return grab_state
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
+			return menu_state
 	return null
 
 func process_physics(delta: float) -> State:

@@ -1,16 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://mo8bhexegi0n"]
+[gd_scene load_steps=12 format=3 uid="uid://mo8bhexegi0n"]
 
 [ext_resource type="Texture2D" uid="uid://cjwo3cplvj4p4" path="res://test - assets/mole.png" id="1_155m1"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_mi6vu"]
 [ext_resource type="PackedScene" uid="uid://uhr20mqtifn" path="res://scenes/state_machine.tscn" id="3_35jke"]
 [ext_resource type="Script" path="res://scripts/state machine/state_machine.gd" id="4_k81tk"]
+[ext_resource type="Script" path="res://scripts/state machine/menu_state.gd" id="5_n7wnc"]
 [ext_resource type="Script" path="res://scripts/state machine/idle_state.gd" id="5_uck71"]
-[ext_resource type="Script" path="res://scripts/state machine/manu_state.gd" id="5_uxh68"]
 [ext_resource type="Script" path="res://scripts/state machine/grab_state.gd" id="6_11cr4"]
 [ext_resource type="Script" path="res://scripts/state machine/move_state.gd" id="7_8gmn3"]
 [ext_resource type="Script" path="res://scripts/state machine/sleep_state.gd" id="8_qcc5s"]
+[ext_resource type="Texture2D" uid="uid://divverqjsv1cn" path="res://test - assets/menu_sprite.png" id="10_kub6u"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_dd210"]
 
 [node name="PlantCharacter" type="Sprite2D"]
+z_index = 1
+z_as_relative = false
 scale = Vector2(2, 2)
 texture = ExtResource("1_155m1")
 script = ExtResource("1_mi6vu")
@@ -25,16 +30,17 @@ polygon = PackedVector2Array(26, 25, 26, -25, -22.4631, -25, -22.4631, 25)
 script = ExtResource("4_k81tk")
 starting_state = NodePath("IdleState")
 
-[node name="ManuState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "grab_state", "move_state", "sleep_state")]
-script = ExtResource("5_uxh68")
+[node name="MenuState" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "grab_state", "move_state", "sleep_state", "menu")]
+script = ExtResource("5_n7wnc")
 idle_state = NodePath("../IdleState")
 grab_state = NodePath("../GrabState")
 move_state = NodePath("../MoveState")
 sleep_state = NodePath("../SleepState")
+menu = NodePath("../../Menu")
 
 [node name="IdleState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "grab_state", "move_state", "sleep_state")]
 script = ExtResource("5_uck71")
-menu_state = NodePath("../ManuState")
+menu_state = NodePath("../MenuState")
 grab_state = NodePath("../GrabState")
 move_state = NodePath("../MoveState")
 sleep_state = NodePath("../SleepState")
@@ -44,7 +50,7 @@ one_shot = true
 
 [node name="GrabState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "move_state", "sleep_state")]
 script = ExtResource("6_11cr4")
-menu_state = NodePath("../ManuState")
+menu_state = NodePath("../MenuState")
 idle_state = NodePath("../IdleState")
 move_state = NodePath("../MoveState")
 sleep_state = NodePath("../SleepState")
@@ -52,11 +58,11 @@ lerp_speed = 0.6
 
 [node name="MoveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "grab_state", "sleep_state")]
 script = ExtResource("7_8gmn3")
-menu_state = NodePath("../ManuState")
+menu_state = NodePath("../MenuState")
 idle_state = NodePath("../IdleState")
 grab_state = NodePath("../GrabState")
 sleep_state = NodePath("../SleepState")
-move_speed = 100.0
+move_speed = 50.0
 screen_margin = 80.0
 
 [node name="Timer" type="Timer" parent="StateMachine/MoveState"]
@@ -64,10 +70,41 @@ one_shot = true
 
 [node name="SleepState" type="Node" parent="StateMachine" node_paths=PackedStringArray("menu_state", "idle_state", "grab_state", "move_state")]
 script = ExtResource("8_qcc5s")
-menu_state = NodePath("../ManuState")
+menu_state = NodePath("../MenuState")
 idle_state = NodePath("../IdleState")
 grab_state = NodePath("../GrabState")
 move_state = NodePath("../MoveState")
+
+[node name="Menu" type="Node2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Menu"]
+visible = false
+z_index = -5
+scale = Vector2(110, 110)
+mesh = SubResource("SphereMesh_dd210")
+
+[node name="Button1" type="Marker2D" parent="Menu"]
+position = Vector2(0, -55)
+
+[node name="Button2" type="Marker2D" parent="Menu"]
+position = Vector2(30, -46)
+
+[node name="Button3" type="Marker2D" parent="Menu"]
+position = Vector2(-30, -46)
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu"]
+visible = false
+position = Vector2(3, -49)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("10_kub6u")
+
+[node name="MenuArea" type="Area2D" parent="Menu"]
+position = Vector2(0, -34)
+
+[node name="MenuPolygon" type="CollisionPolygon2D" parent="Menu/MenuArea"]
+position = Vector2(3, -15)
+scale = Vector2(0.6, 0.6)
+polygon = PackedVector2Array(-90, -60.8333, -91.6667, 49.1667, 103.333, 47.5, 104.167, -57.5)
 
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="StateMachine/IdleState/Timer" to="StateMachine/IdleState" method="_on_timer_timeout"]
