@@ -36,3 +36,8 @@ func process_frame(delta: float) -> void:
 	var new_state = current_state.process_frame(delta)
 	if new_state:
 		change_state(new_state)
+
+
+func _on_button_pressed() -> void:
+	print("boton pulsado")
+	pass # Replace with function body.

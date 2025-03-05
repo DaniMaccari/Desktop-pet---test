@@ -27,12 +27,13 @@ func process_physics(delta: float) -> State:
 	
 	var click_polygon: PackedVector2Array # = parent._ClickPolygon.polygon
 	var screen_size = DisplayServer.window_get_size()
-	click_polygon = PackedVector2Array([
-		Vector2(0, 0),
-		Vector2(screen_size.x, 0),
-		Vector2(screen_size.x, screen_size.y),
-		Vector2(0, screen_size.y)
-	])
+	click_polygon = []
+	#PackedVector2Array([
+		#Vector2(0, 0),
+		#Vector2(screen_size.x, 0),
+		#Vector2(screen_size.x, screen_size.y),
+		#Vector2(0, screen_size.y)
+	#]) # when empty recognices as fullscreen
 	
 	parent.get_window().mouse_passthrough_polygon = click_polygon
 	

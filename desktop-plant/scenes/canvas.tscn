@@ -1,10 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bieh6xd86w3u8"]
+[gd_scene load_steps=5 format=3 uid="uid://bieh6xd86w3u8"]
 
 [ext_resource type="Script" path="res://scripts/canvas.gd" id="1_wbrr1"]
 [ext_resource type="PackedScene" uid="uid://mo8bhexegi0n" path="res://scenes/plant_character.tscn" id="2_e4u8s"]
+[ext_resource type="PackedScene" uid="uid://c0ytxb0lork3h" path="res://scenes/popup_test.tscn" id="3_p8cbu"]
+[ext_resource type="Script" path="res://scripts/window_popup_test.gd" id="3_qo1uv"]
 
 [node name="Canvas" type="Node2D"]
 script = ExtResource("1_wbrr1")
 
 [node name="PlantCharacter" parent="." instance=ExtResource("2_e4u8s")]
 position = Vector2(574, 287)
+
+[node name="Window" type="Window" parent="."]
+transparent_bg = true
+title = "Timer"
+size = Vector2i(1090, 100)
+borderless = true
+always_on_top = true
+transparent = true
+popup_window = true
+script = ExtResource("3_qo1uv")
+
+[node name="Popup" parent="Window" instance=ExtResource("3_p8cbu")]

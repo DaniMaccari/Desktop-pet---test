@@ -6,7 +6,9 @@ extends Node2D
 
 func _ready() -> void:
 	_initialize_window()
-	
+	$Window.size.x = DisplayServer.window_get_size().x
+	$Window.size.y = DisplayServer.window_get_size().y
+	#$Window.init(DisplayServer.window_get_size())
 
 func _initialize_window() -> void:
 	# You don't need to change all of these settings via a function during

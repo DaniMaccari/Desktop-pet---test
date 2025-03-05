@@ -17,6 +17,7 @@ var lerp_speed : float = 0.6
 
 func _ready() -> void:
 	state_machine.init($".")
+	$Menu.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)

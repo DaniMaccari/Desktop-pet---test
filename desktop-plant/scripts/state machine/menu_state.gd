@@ -39,12 +39,13 @@ func process_physics(delta: float) -> State:
 	#for vec_i in range(menu_polygon.size()):
 		#menu_polygon[vec_i] = parent.to_global(menu_polygon[vec_i])
 	var screen_size = DisplayServer.window_get_size()
-	menu_polygon = PackedVector2Array([
-		Vector2(0, 0),
-		Vector2(screen_size.x, 0),
-		Vector2(screen_size.x, screen_size.y),
-		Vector2(0, screen_size.y)
-	])
+	menu_polygon = []
+	#PackedVector2Array([
+		#Vector2(0, 0),
+		#Vector2(screen_size.x, 0),
+		#Vector2(screen_size.x, screen_size.y),
+		#Vector2(0, screen_size.y)
+	#])
 	parent.get_window().mouse_passthrough_polygon = menu_polygon
 	
 	return null
@@ -53,6 +54,7 @@ func set_menu_rotation() -> void:
 	var screen_size = DisplayServer.window_get_size()
 	#var half_screen = screen_size.x / 2
 	
+	## menu rotation
 	if parent.global_position.y <= screen_size.y / top_margin:
 		if parent.global_position.x <= screen_size.x / side_margin:
 			menu.rotation_degrees = 135
@@ -68,3 +70,8 @@ func set_menu_rotation() -> void:
 			menu.rotation_degrees = 315
 		else :
 			menu.rotation_degrees = 0
+	
+	## buttons set correct rottation
+	for button in menu.get_children():
+		if button.is_in_group("menu_select"):
+			button.rotation_degrees = -menu.rotation_degrees
