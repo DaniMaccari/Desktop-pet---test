@@ -37,6 +37,13 @@ func show_menu() -> void:
 func hide_menu() -> void:
 	$Menu.hide()
 
+func timer_show_petition() -> void:
+	if get_parent().has_method("show_timer"):
+		get_parent().show_timer(position)
+		print("enviando al padre")
+	else:
+		print("ERROR: show_timer do not exist in parent")
+
 #func _physics_process(_delta: float) -> void:
 	#pass
 	#if dragging:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://mo8bhexegi0n"]
+[gd_scene load_steps=14 format=3 uid="uid://mo8bhexegi0n"]
 
 [ext_resource type="Texture2D" uid="uid://cjwo3cplvj4p4" path="res://test - assets/mole.png" id="1_155m1"]
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_mi6vu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/state machine/sleep_state.gd" id="8_qcc5s"]
 [ext_resource type="Texture2D" uid="uid://divverqjsv1cn" path="res://test - assets/menu_sprite.png" id="10_kub6u"]
 [ext_resource type="Texture2D" uid="uid://bdjbcfc0citkn" path="res://test - assets/A.png" id="10_p6iie"]
+[ext_resource type="Texture2D" uid="uid://cgttnpaj75mmn" path="res://test - assets/Z.png" id="11_pujxy"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_dd210"]
 
@@ -77,12 +78,24 @@ move_state = NodePath("../MoveState")
 
 [node name="Menu" type="Node2D" parent="."]
 
-[node name="A" type="Sprite2D" parent="Menu" groups=["menu_select"]]
+[node name="Timer" type="Sprite2D" parent="Menu" groups=["menu_select"]]
 position = Vector2(0, -55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_p6iie")
 
-[node name="ButtonTest" type="Button" parent="Menu/A"]
+[node name="TimerButton" type="Button" parent="Menu/Timer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -26.0
+offset_top = -24.0
+offset_right = 26.0
+offset_bottom = 23.0
+
+[node name="Sleep" type="Sprite2D" parent="Menu" groups=["menu_select"]]
+position = Vector2(30, -46)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_pujxy")
+
+[node name="SleepButton" type="Button" parent="Menu/Sleep"]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -26.0
 offset_top = -24.0
@@ -113,4 +126,5 @@ texture = ExtResource("10_kub6u")
 [connection signal="input_event" from="ClickArea" to="." method="_on_click_area_input_event"]
 [connection signal="timeout" from="StateMachine/IdleState/Timer" to="StateMachine/IdleState" method="_on_timer_timeout"]
 [connection signal="timeout" from="StateMachine/MoveState/Timer" to="StateMachine/MoveState" method="_on_timer_timeout"]
-[connection signal="pressed" from="Menu/A/ButtonTest" to="StateMachine" method="_on_button_pressed"]
+[connection signal="pressed" from="Menu/Timer/TimerButton" to="StateMachine" method="_on_timer_button_pressed"]
+[connection signal="pressed" from="Menu/Sleep/SleepButton" to="StateMachine" method="_on_sleep_button_pressed"]

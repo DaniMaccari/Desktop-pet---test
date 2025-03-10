@@ -2,12 +2,11 @@ extends Node2D
 
 
 ## The main screen the app uses.
+@onready var window_timer: Window = $TimerWindow
 
 
 func _ready() -> void:
 	_initialize_window()
-	$Window.size.x = DisplayServer.window_get_size().x
-	$Window.size.y = DisplayServer.window_get_size().y
 	#$Window.init(DisplayServer.window_get_size())
 
 func _initialize_window() -> void:
@@ -33,3 +32,13 @@ func _initialize_window() -> void:
 	# If you have multiple windows in your project, you can
 	# modify the additional viewports' settings from the inspector.
 #	window.transparent_bg = true
+	initialize_popups()
+
+func initialize_popups() -> void:
+	window_timer.size = DisplayServer.window_get_size() + Vector2i(1, 1)
+	window_timer.hide()
+	
+func show_timer(character_position: Vector2) -> void:
+	window_timer.show()
+	print("mostrando timer")
+	

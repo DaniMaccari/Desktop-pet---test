@@ -2,6 +2,7 @@ extends Node
 
 @export var starting_state: State
 var current_state: State
+var previous_state : State
 
 func init(parent: Character) -> void:
 	for child in get_children():
@@ -14,6 +15,7 @@ func change_state(new_state: State) -> void:
 	if current_state != null:
 		current_state.exit()
 	
+	previous_state = current_state # for later usage
 	current_state = new_state
 	current_state.enter()
 	
@@ -37,7 +39,13 @@ func process_frame(delta: float) -> void:
 	if new_state:
 		change_state(new_state)
 
+## Button pressed functions
+func _on_sleep_button_pressed() -> void:
+	print("boton sleep pulsado")
+	change_state($SleepState)
 
-func _on_button_pressed() -> void:
-	print("boton pulsado")
-	pass # Replace with function body.
+
+func _on_timer_button_pressed() -> void:
+	print("boton timer pulsado")
+	get_parent().timer_show_petition()
+	
