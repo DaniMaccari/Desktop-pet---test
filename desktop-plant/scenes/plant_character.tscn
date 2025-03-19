@@ -16,7 +16,7 @@
 [sub_resource type="SphereMesh" id="SphereMesh_dd210"]
 
 [node name="PlantCharacter" type="Sprite2D"]
-z_index = 1
+z_index = 5
 z_as_relative = false
 scale = Vector2(2, 2)
 texture = ExtResource("1_155m1")

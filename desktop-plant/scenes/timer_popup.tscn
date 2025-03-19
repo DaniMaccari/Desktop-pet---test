@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scripts/popup_test.gd" id="2_s4rwv"]
 
 [node name="Popup" type="Sprite2D"]
-z_index = 1
 z_as_relative = false
 texture = ExtResource("1_nmgr7")
 script = ExtResource("2_s4rwv")

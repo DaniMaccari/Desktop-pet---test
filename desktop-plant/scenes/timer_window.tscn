@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7qdnoypw6aa"]
+
+[ext_resource type="Script" path="res://scripts/timer_window.gd" id="1_cpnb6"]
+
+[node name="TimerWindow" type="Window"]
+auto_translate_mode = 1
+title = "Focus"
+initial_position = 2
+size = Vector2i(300, 350)
+always_on_top = true
+script = ExtResource("1_cpnb6")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.980392, 0.980392, 0.980392, 1)
+
+[node name="TimerText" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.0
+offset_top = 50.0
+offset_right = 37.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 65
+bbcode_enabled = true
+text = "[center]25[/center]
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 59.0
+
+[node name="TestButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.5
+offset_right = 15.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(15, 15)
+text = ">"
+
+[node name="AddMinutesButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 35.0
+offset_top = -15.5
+offset_right = 65.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(15, 15)
+text = "+"
+
+[node name="SubstractMinutesButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -15.5
+offset_right = -36.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(15, 15)
+text = "-"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]
+[connection signal="pressed" from="AddMinutesButton" to="." method="_on_add_minutes_button_pressed"]
+[connection signal="pressed" from="SubstractMinutesButton" to="." method="_on_substract_minutes_button_pressed"]
