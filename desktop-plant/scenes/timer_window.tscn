@@ -38,7 +38,7 @@ scroll_active = false
 autowrap_mode = 0
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 59.0
+wait_time = 60.0
 
 [node name="TestButton" type="Button" parent="."]
 anchors_preset = 8

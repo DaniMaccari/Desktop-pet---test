@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ywh37sepxojh"]
+
+[node name="ToDoWindow" type="Window"]
+auto_translate_mode = 1
+title = "Focus"
+initial_position = 2
+size = Vector2i(300, 350)
+always_on_top = true
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.980392, 0.980392, 0.980392, 1)
+
+[node name="TittleText" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -82.0
+offset_right = 82.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 65
+bbcode_enabled = true
+text = "ToDo
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VScrollBar" type="VScrollBar" parent="ScrollContainer"]
+layout_mode = 2

@@ -35,6 +35,7 @@ func _on_test_button_pressed() -> void:
 		else:
 			clock_time = initial_time
 			in_progress = true
+			_on_timer_timeout() #DEBUG
 	
 	update_clock_text(clock_time)
 	
@@ -44,6 +45,8 @@ func _on_timer_timeout() -> void:
 	print("clock ", "tick")
 	clock_time -= 1
 	update_clock_text(clock_time)
+	if clock_time <= 0:
+		clock_finished()
 	
 
 func update_clock_text(new_time) -> void:
@@ -65,7 +68,12 @@ func update_clock_text(new_time) -> void:
 	
 	clock_text.append_text("[center]" + time_to_string + "[/center]")
 	#clock_text.append_text(time_to_string)
-	
+
+func clock_finished() -> void:
+	clock_timer.stop()
+	is_active = false
+	print("Timer Acabado")
+	# sonar alarma
 
 
 func _on_add_minutes_button_pressed() -> void:
